@@ -1,0 +1,826 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title> WorldOmeter - Coronavirus Pandemic Stats</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Coronavirus statistics ">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/grids-responsive-min.css">
+    <link rel="stylesheet" href="/css/pure/pure-min.css">
+    <link rel="stylesheet" href="/css/pure/grids-responsive-min.css">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/base-min.css">
+    <link rel="icon" href="iconn.png" type="image/icon type">
+    <link rel="stylesheet" href="style.css">
+
+     <!-- pour pagination du tableau -->
+     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
+     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+     <script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+ 
+     <script type="text/javascript">
+        $(document).ready(function(){
+          $("#mytable").DataTable();
+           });
+     </script>
+ </head>
+
+
+<body style="background-color: #73C2FB">
+  <!--librairies-->
+  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css" >
+  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/grids-responsive-min.css" />
+  <link rel="stylesheet" href="/css/pure/grids-responsive-min.css">
+<link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css" integrity="sha384-Uu6IeWbM+gzNVXJcM9XV3SohHtmWE+3VGi496jvgX1jyvDTXfdK+rfZc8C1Aehk5" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/base-min.css">
+<link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/grids-responsive-min.css" />
+  <div class="pure-menu pure-menu-horizontal" style="position: sticky;"><!--class="sticky"-->
+
+    
+    <!-----------------------------------------------------------responsive menu-------------------------------------------------------->
+    <div class="custom-wrapper pure-g" id="menu" style="background-color: #06283D; height: 40px"><!--class="sticky"-->
+      <div class="pure-u-1 pure-u-md-1-3">
+          <div class="pure-menu">
+              <a href="index.html" class="pure-menu-heading custom-brand"><img src="iconn.png" style="position: relative; top: -5px; height: 30px; width: 40px"></a>
+              <a href="#" class="custom-toggle" id="toggle"><s class="bar"></s><s class="bar"></s></a>
+          </div>
+      </div>
+      <div class="pure-u-1 pure-u-md-1-3">
+          <div class="pure-menu pure-menu-horizontal custom-can-transform">
+              <ul class="pure-menu-list">
+                  <li class="pure-menu-item"><a href="index.html"target="blank" class="pure-menu-link" style="color: white">Coronavirus</a></li>
+                  <li class="pure-menu-item"><a href="population.html" target="blank" class="pure-menu-link" style="color: white">Population</a></li>
+                  <li class="pure-menu-item"><a href="active.html" target="blank" class="pure-menu-link" style="color: white">Active Cases</a></li>
+                  <li class="pure-menu-item"><a href="closed.html" target="blank" class="pure-menu-link" style="color: white">Closed Cases</a></li>
+              </ul>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+<!--------------------------------js for the responsive menu---------------------------------------->
+<script>
+  (function (window, document) {
+  var menu = document.getElementById('menu'),
+      rollback,
+      WINDOW_CHANGE_EVENT = ('onorientationchange' in window) ? 'orientationchange':'resize';
+
+  function toggleHorizontal() {
+      menu.classList.remove('closing');
+      [].forEach.call(
+          document.getElementById('menu').querySelectorAll('.custom-can-transform'),
+          function(el){
+              el.classList.toggle('pure-menu-horizontal');
+          }
+      );
+  };
+
+  function toggleMenu() {
+      // set timeout so that the panel has a chance to roll up
+      // before the menu switches states
+      if (menu.classList.contains('open')) {
+          menu.classList.add('closing');
+          rollBack = setTimeout(toggleHorizontal, 500);
+      }
+      else {
+          if (menu.classList.contains('closing')) {
+              clearTimeout(rollBack);
+          } else {
+              toggleHorizontal();
+          }
+      }
+      menu.classList.toggle('open');
+      document.getElementById('toggle').classList.toggle('x');
+  };
+
+  function closeMenu() {
+      if (menu.classList.contains('open')) {
+          toggleMenu();
+      }
+  }
+
+  document.getElementById('toggle').addEventListener('click', function (e) {
+      toggleMenu();
+      e.preventDefault();
+  });
+
+  window.addEventListener(WINDOW_CHANGE_EVENT, closeMenu);
+  })(this, this.document);
+
+  </script>
+
+
+
+<!--------------------------------banner------------------------------------->
+<div class="banner">
+    <h1 class="banner-head" style="text-align: left;">
+        Covid-19 CORONAVIRUS <br><center>PANDEMIC</center><br>
+       
+    </h1>
+</div>
+
+
+<!--------------Total cases, deaths and recoveries--------------------------->
+<div class=pure-u-1>
+  <div class="box">
+          <div class="pure-g">
+              <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-3">
+                  <div class="l-box" style="background-color:#06283D;margin-left:5px; border:#06283D; border-radius: 10px"><h1>Coronavirus Cases</h1><br><p style="font-size: 20px;">319,996,882</p></div>
+              </div>
+
+              <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-1-3">
+                  <div class="l-box" style="background-color:#47B5FF;margin-right:5px;margin-left:5px; border: #47B5FF;border-radius: 10px"><h1>Deaths</h1><br><p style="font-size: 20px;">5,536,825</p></div>
+              </div>
+              <div class="pure-u-1 pure-u-md-1 pure-u-lg-1-3">
+                  <div class="l-box" style="background-color:#DFF6FF;margin-right:5px;border: #DFF6FF;border-radius: 10px"><h1 style="color: black; ">Recovered</h1><br><p style="font-size: 20px; color: black;">263,742,608</p></div>
+              </div>
+           </div>
+      </div>
+    </div>
+    <div class="pure-g">
+      <div class="pure-u-1" style="color:white"></div>
+      <div class="pure-u-1" style="color:white"> </div>
+      <div class="pure-u-1" style="color:white"> </div>
+
+
+
+      <!-------------------------daily cases graph--------------------------------------->
+      <div class="pure-u-1 pure-u-md-1-2">
+       <div> <center><h1 style="color: black">Daily Cases</h1></center>
+        <canvas id="daily_cases"></canvas>
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+      <script type="text/javascript" src="daily_cases js.js"></script></div></div>
+      <!--daily deaths graph------------------------------------------------------------->
+      <div class="pure-u-1 pure-u-md-1-2">
+       <div> <center><h1 style="color: black">Daily Deaths</h1></center>
+        <canvas id="daily_deaths"></canvas>
+      <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+      <script type="text/javascript" src="daily_deaths js.js"></script></div></div>
+     
+      </div>
+      <div class="pure-u-1"></div>
+      <div class="pure-u-1"></div>
+      <div class="pure-u-1"></div>
+
+
+
+<!-------------------------------------NEWS-------------------------------------------------->
+<div class=pure-u-1>
+  <div class="slideshow-container"> 
+
+      <div class="mySlides fade">
+        <div class="numbertext">1 / 10</div>
+        <br><p class="s">23 new cases in Saint Pierre and Miquelon</p>
+      </div>
+      
+      <div class="mySlides fade">
+        <div class="numbertext">2 / 10</div>
+         <br><p class="s">13,473 new cases and 9 new deaths in Denmark </p>
+      </div>
+      
+      <div class="mySlides fade">
+        <div class="numbertext">3 / 10</div>
+        <br><p class="s">4,778 new cases and 2 new deaths in Saudi Arabia </p>
+      </div>
+      
+      <div class="mySlides fade">
+        <div class="numbertext">4 / 10</div>
+        <br><p class="s">1,578 new cases and 40 new deaths in Croatia  </p>
+      </div>
+      
+      <div class="mySlides fade">
+        <div class="numbertext">5 / 10</div>
+        <br><p class="s">6,852 new cases and 5 new deaths in Switzerland  </p>
+      </div>
+      
+      <div class="mySlides fade">
+        <div class="numbertext">6 / 10</div>
+        <br><p class="s">749 new cases and 18 new deaths in Uganda </p>
+      </div>
+      
+      <div class="mySlides fade">
+        <div class="numbertext">7 / 10</div>
+        <br><p class="s">63 new cases in Mauritius </p>
+      </div>
+      
+      <div class="mySlides fade">
+        <div class="numbertext">8 / 10</div>
+        <br><p class="s">93 new cases and 5 new deaths in Fiji </p>
+      </div>
+      
+      <div class="mySlides fade">
+        <div class="numbertext">9 / 10</div>
+        <br><p class="s">21 new cases in Bhutan </p>
+      </div>
+      
+      <div class="mySlides fade">
+        <div class="numbertext">10 / 10</div>
+        <br><p class="s">3,878 new cases and 1 new death in Qatar </p>
+      </div>
+      
+      </div>
+      <br>
+      
+      <div style="text-align:center">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span> 
+        <span class="dot"></span> 
+      </div>   
+</div>
+
+<script>
+  var slideIndex = 0;
+  showSlides();
+  
+  
+  function showSlides(s) {
+    var i;
+    var slides = document.getElementsByClassName("mySlides");
+    var dots = document.getElementsByClassName("dot");
+    for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";  
+    }
+    slideIndex++;
+    if (slideIndex > slides.length) {slideIndex = 1}    
+    for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex-1].style.display = "block";  
+    dots[slideIndex-1].className += " active";
+    setTimeout(showSlides, 2000); // Change text every 2 seconds
+  }
+  </script>
+
+
+
+
+    <!----------------------------------table------------------------------------------------------>
+    <div class=pure-u-1></div>
+    <div style=" margin: 20px;Overflow-x:scroll;">
+    <table id="mytable" class="pure-table" style="table-layout:auto; width: 100%;"> 
+     <thead>
+      <tr>
+          <th>Country</th>
+          <th>Total Cases</th>
+          <th >New Cases</th>
+          <th>Total Deaths</th>
+          <th >New Deaths</th>
+          <th>Total Recovered</th>
+          <th >New Recovered</th>
+          <th>Active Cases</th>
+          <th>Serious, Critical</th>
+          <th>Tot Cases/1M pop</th>
+          <th>Deaths/1M pop</th>
+          <th>Tot Tests</th>
+          <th>Tests/1M pop</th>
+          <th>Population</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr class="pure-table-odd">
+          <td>USA</td>
+          <td>55,696,500</td>
+          <td style="background-color: #06283D;color: white"><b>+619,909</b></td>
+          <td>846,905</td>
+          <td style="background-color: #47B5FF;color: white"><b>+1,501</b></td>
+          <td>41,502,739</td>
+          <td style="background-color: #9A9483;"><b>65,945</b></td>
+          <td>13,346,856</td>
+          <td>18,028</td>
+          <td>166,802</td>
+          <td>2,536</td>
+          <td>812,744,236</td>
+          <td>2,434,034</td>
+          <td>333,908,317</td>
+      </tr>
+      <tr class="pure-table-odd">
+        <td>India</td>
+        <td>34,861,579</td>
+        <td style="background-color: #06283D;color: white"><b>+253,496</b></td>
+        <td>481,486</td>
+        <td style="background-color: #47B5FF;color: white"><b>+8</b></td>
+        <td>34,275,312</td>
+        <td style="background-color: #9A9483;"><b>+90,916</b></td>
+        <td>104,781</td>
+        <td>8,944</td>
+        <td>24,896</td>
+        <td>344</td>
+        <td>677,878,255</td>
+        <td>484,092</td>
+        <td>1,400,309,632</td>
+    </tr>
+      <tr>
+          <td>Brazil</td>
+          <td>22,287,521</td>
+          <td style="background-color: #06283D;color: white"><b>+96,311</b></td>
+          <td>619,109</td>
+          <td style="background-color: #47B5FF;color: white"><b>+126</b></td>
+          <td>21,567,845</td>
+          <td style="background-color: #9A9483;"><b>+0</b></td>
+          <td>100,567</td>
+          <td>8,318</td>
+          <td>103,749</td>
+          <td>2,882</td>
+          <td>63,776,166</td>
+          <td>296,880</td>
+          <td>214,821,155</td>
+      </tr>
+      <tr class="pure-table-odd">
+        <td>UK</td>
+        <td>8,422,815</td>
+        <td style="background-color: #06283D;color: white"><b>+09,133</b></td>
+        <td>148,893</td>
+        <td style="background-color: #47B5FF;color: white"><b>+335</b></td>
+        <td>10,460,659</td>
+        <td style="background-color: #9A9483;"><b>+89,173</b></td>
+        <td>2,813,263</td>
+        <td>868</td>
+        <td>196,177</td>
+        <td>2,176</td>
+        <td>404,382,130</td>
+        <td>5,910,134</td>
+        <td>68,421,816</td>
+    </tr>
+    <tr class="pure-table-odd">
+      <td>France</td>
+      <td>10,317,819</td>
+      <td style="background-color: #06283D;color: white"><b>+305,322</b></td>
+      <td>124,212</td>
+      <td style="background-color: #47B5FF;color: white"><b>+225</b></td>
+      <td>8,210,191</td>
+      <td style="background-color: #9A9483;"><b>+93,878</b></td>
+      <td>1,983,416</td>
+      <td>3,333</td>
+      <td>157,547</td>
+      <td>1,897</td>
+      <td>188,795,159</td>
+      <td>2,882,784</td>
+      <td>65,490,561</td>
+  </tr>
+      <tr>
+          <td>Russia</td>
+          <td>10,519,733</td>
+          <td style="background-color: #06283D;color: white"><b>+21,155</b></td>
+          <td>309,707</td>
+          <td style="background-color: #47B5FF;color: white"><b>+740</b></td>
+          <td>9,497,063</td>
+          <td style="background-color: #9A9483;"><b>+25,984</b></td>
+          <td>712,963</td>
+          <td>2,300</td>
+          <td>72,039</td>
+          <td>2,121</td>
+          <td>240,400,000</td>
+          <td>1,646,258</td>
+          <td>146,028,164</td>
+      </tr>
+      <tr>
+          <td>Turkey</td>
+          <td>9,597,670</td>
+          <td style="background-color: #06283D;color: white"><b>+184,615</b></td>
+          <td>82,795</td>
+          <td style="background-color: #47B5FF;color: white"><b>+153</b></td>
+          <td>9,136,290</td>
+          <td style="background-color: #9A9483;"><b>+51,675</b></td>
+          <td>378,585</td>
+          <td>1,128</td>
+          <td>111,989</td>
+          <td>966</td>
+          <td>119,794,419</td>
+          <td>1,397,800</td>
+          <td>85,702,128</td>
+      </tr>
+      <tr>
+          <!--<td>8</td>-->
+          <td>Germany</td>
+          <td>7,229,374</td>
+          <td style="background-color: #06283D;color: white"><b>+93,154</b></td>
+          <td>113,043</td>
+          <td style="background-color: #47B5FF;color: white"><b>+261</b></td>
+          <td>6,478,600</td>
+          <td style="background-color: #9A9483;"><b>+41,500</b></td>
+          <td>637,731</td>
+          <td>4,636</td>
+          <td>85,873</td>
+          <td>1,343</td>
+          <td>89,622,218</td>
+          <td>1,064,567</td>
+          <td>84,186,512</td>
+      </tr>
+      <tr>
+        <!--<td>10</td>-->
+        <td>Italy</td>
+        <td>6,396,110</td>
+        <td style="background-color: #06283D;color: white"><b>+184,615</b></td>
+        <td>137,786</td>
+        <td style="background-color: #47B5FF;color: white"><b>+316</b></td>
+        <td>5,133,272</td>
+        <td style="background-color: #9A9483;"><b>+82,803</b></td>
+        <td>1,125,052</td>
+        <td>1,351</td>
+        <td>106,022</td>
+        <td>2,284</td>
+        <td>141,992,517</td>
+        <td>2,353,667</td>
+        <td>60,328,203</td>
+    </tr>
+      <tr class="pure-table-odd">
+          <!--<td>9</td>-->
+          <td>Spain</td>
+          <td>6,667,511</td>
+          <td style="background-color: #06283D;color: white"><b>+159,161</b></td>
+          <td>89,573</td>
+          <td style="background-color: #47B5FF;color: white"><b>+112</b></td>
+          <td>5,099,647</td>
+          <td style="background-color: #9A9483;"><b>+16,476</b></td>
+          <td>1,478,291</td>
+          <td>1,803</td>
+          <td>142,523</td>
+          <td>1,915</td>
+          <td>66,213,858</td>
+          <td>1,415,371</td>
+          <td>46,781,994</td>
+      </tr>
+      <tr>
+        <!--<td>12</td>-->
+        <td>Argentina</td>
+        <td>5,694,930</td>
+        <td style="background-color: #06283D;color: white"><b>+128,402</b></td>
+        <td>117,204</td>
+        <td style="background-color: #47B5FF;color: white"><b>138</b></td>
+        <td>5,336,023</td>
+        <td style="background-color: #9A9483;"><b>80,188</b></td>
+        <td>241,703</td>
+        <td>1,102</td>
+        <td>124,293</td>
+        <td>2,558</td>
+        <td>28,228,028</td>
+        <td>616,080</td>
+        <td>45,818,746</td>
+    </tr>
+      <tr class="pure-table-odd">
+          <!--<td>11</td>-->
+          <td>Iran</td>
+          <td>6,198,590</td>
+          <td style="background-color: #06283D;color: white"><b>+2,394</b></td>
+          <td>131,702</td>
+          <td style="background-color: #47B5FF;color: white"><b>+30</b></td>
+          <td>6,042,589</td>
+          <td style="background-color: #9A9483;"><b>+1,953</b></td>
+          <td>24,299</td>
+          <td>2,624</td>
+          <td>72,407</td>
+          <td>1,538</td>
+          <td>42,281,617</td>
+          <td>493,902</td>
+          <td>85,607,376</td>
+      </tr>
+      <tr class="pure-table-odd">
+          <!--<td>13</td>-->
+          <td>Colombia</td>
+          <td>5,181,173</td>
+          <td style="background-color: #06283D;color: white"><b>+30,283</b></td>
+          <td>130,026</td>
+          <td style="background-color: #47B5FF;color: white"><b>+96</b></td>
+          <td>4,977,885</td>
+          <td style="background-color: #9A9483;"><b>+22,574</b></td>
+          <td>73,262</td>
+          <td>342</td>
+          <td>100,221</td>
+          <td>2,515</td>
+          <td>29,764,087</td>
+          <td>575,736</td>
+          <td>51,697,466</td>
+      </tr>
+      <tr>
+          <!--<td>14</td>-->
+          <td>Indonesia</td>
+          <td>4,263,433</td>
+          <td style="background-color: #06283D;color: white"><b>+793</b></td>
+          <td>144,102</td>
+          <td style="background-color: #47B5FF;color: white"><b>+5</b></td>
+          <td>4,114,801</td>
+          <td style="background-color: #9A9483;"><b>+385</b></td>
+          <td>+4,530</td>
+          <td></td>
+          <td>15,343</td>
+          <td>519</td>
+          <td>63,829,597</td>
+          <td>229,712</td>
+          <td>277,867,812</td>
+      </tr>
+      <tr class="pure-table-odd">
+          <!--<td>15</td>-->
+          <td>Poland</td>
+          <td>4,133,851</td>
+          <td style="background-color: #06283D;color: white"><b>+16,878</b></td>
+          <td>97,601</td>
+          <td style="background-color: #47B5FF;color: white"><b>+481</b></td>
+          <td>3,670,066</td>
+          <td style="background-color: #9A9483;"><b>+9,876</b></td>
+          <td>366,184</td>
+          <td>1,880</td>
+          <td>109,407</td>
+          <td>2,583</td>
+          <td>27,327,211</td>
+          <td>723,242</td>
+          <td>37,784,312</td>
+      </tr>
+      <tr>
+          <!--<td>16</td>-->
+          <td>Mexico</td>
+          <td>3,990,587</td>
+          <td style="background-color: #06283D;color: white"><b>+44,187</b></td>
+          <td>299,544</td>
+          <td style="background-color: #47B5FF;color: white"><b>+190</b></td>
+          <td>3,312,233</td>
+          <td style="background-color: #9A9483;"><b>+9,590</b></td>
+          <td>378,810</td>
+          <td>4,798</td>
+          <td>30,470</td>
+          <td>2,287</td>
+          <td>12,417,832</td>
+          <td>94,816</td>
+          <td>130,967,361</td>
+      </tr>
+      <tr class="pure-table-odd">
+          <!--<td>17</td>-->
+          <td>Ukraine</td>
+          <td>3,676,342</td>
+          <td style="background-color: #06283D;color: white"><b>+10,046</b></td>
+          <td>96,301</td>
+          <td style="background-color: #47B5FF;color: white"><b>+191</b></td>
+          <td>3,479,725</td>
+          <td style="background-color: #9A9483;"><b>+7,202</b></td>
+          <td>100,316</td>
+          <td>177</td>
+          <td>84,828</td>
+          <td>2,222</td>
+          <td>16,824,014</td>
+          <td>388,197</td>
+          <td>43,338,813</td>
+      </tr>
+      <tr>
+          <!--<td>18</td>-->
+          <td>South Africa</td>
+          <td>3,475,512</td>
+          <td style="background-color: #06283D;color: white"><b>+5,917</b></td>
+          <td>91,312</td>
+          <td style="background-color: #47B5FF;color: white"><b>+159</b></td>
+          <td>3,224,152</td>
+          <td style="background-color: #9A9483;"><b>+37,201</b></td>
+          <td>160,048</td>
+          <td>546</td>
+          <td>57,511</td>
+          <td>1,511</td>
+          <td>21,304,188</td>
+          <td>352,534</td>
+          <td>60,431,627</td>
+      </tr>
+      <tr class="pure-table-odd">
+          <!--<td>19</td>-->
+          <td>Netherlands</td>
+          <td>3,180,329</td>
+          <td style="background-color: #06283D;color: white"><b>+33,344</b></td>
+          <td>20,971</td>
+          <td style="background-color: #47B5FF;color: white"><b>+13</b></td>
+          <td>2,707,919</td>
+          <td style="background-color: #9A9483;"><b>+12,752</b></td>
+          <td>451,439</td>
+          <td>480</td>
+          <td>184,991</td>
+          <td>1,220</td>
+          <td>21,107,399</td>
+          <td>1,227,756</td>
+          <td>17,191,846</td>
+      </tr>
+      <tr>
+          <!--<td>20</td>-->
+          <td>Philippines</td>
+          <td>2,855,819</td>
+          <td style="background-color: #06283D;color: white"><b>+34,021</b></td>
+          <td>51,586</td>
+          <td style="background-color: #47B5FF;color: white"><b>+82</b></td>
+          <td>2,779,241</td>
+          <td style="background-color: #9A9483;"><b>+4,694</b></td>
+          <td>24,992</td>
+          <td>899</td>
+          <td>25,551</td>
+          <td>462</td>
+          <td>25,217,292</td>
+          <td>225,615</td>
+          <td>111,771,200</td>
+      </tr>
+      <tr class="pure-table-odd">
+          <!--<td>21</td>-->
+          <td>Malaysia</td>
+          <td>2,764,354</td>
+          <td style="background-color: #06283D;color: white"><b>3,684</b></td>
+          <td>31,532</td>
+          <td style="background-color: #47B5FF;color: white"><b>12</b></td>
+          <td>2,692,216</td>
+          <td style="background-color: #9A9483;"><b>3,292</b></td>
+          <td>40,606</td>
+          <td>284</td>
+          <td>83,797</td>
+          <td>956</td>
+          <td>41,368,765</td>
+          <td>1,254,027</td>
+          <td>32,988,729</td>
+      </tr>
+      <tr>
+          <!--<td>22</td>-->
+          <td>Czechia</td>
+          <td>2,483,762</td>
+          <td style="background-color: #06283D;color: white"><b>+11,452</b></td>
+          <td>36,255</td>
+          <td style="background-color: #47B5FF;color: white"><b>+18</b></td>
+          <td>2,350,159</td>
+          <td style="background-color: #9A9483;"><b>+182</b></td>
+          <td>97,348</td>
+          <td>536</td>
+          <td>231,288</td>
+          <td>3,376</td>
+          <td>47,008,760</td>
+          <td>4,377,454</td>
+          <td>10,738,837</td>
+      </tr>
+      <tr>
+        <!--<td>24</td>-->
+        <td>Canada</td>
+        <td>2,268,241</td>
+        <td style="background-color: #06283D;color: white"><b>+10,054</b></td>
+        <td>30,369</td>
+        <td style="background-color: #47B5FF;color: white"><b>+35</b></td>
+        <td>1,894,330</td>
+        <td style="background-color: #9A9483;"><b>19,841</b></td>
+        <td>343,542</td>
+        <td>455</td>
+        <td>59,317</td>
+        <td>794</td>
+        <td>52,560,743</td>
+        <td>1,374,523</td>
+        <td>38,239,247</td>
+    </tr>
+      <tr class="pure-table-odd">
+          <!--<td>23</td>-->
+          <td>Japan</td>
+          <td>2,301,177</td>
+          <td style="background-color: #06283D;color: white"><b>+10,046</b></td>
+          <td>202,741</td>
+          <td style="background-color: #47B5FF;color: white"><b>+191</b></td>
+          <td></td>
+          <td style="background-color: #9A9483;"><b>+7,202</b></td>
+          <td></td>
+          <td>882</td>
+          <td>68,362</td>
+          <td>6,023</td>
+          <td>21,843,645</td>
+          <td>648,920</td>
+          <td>33,661,517</td>
+      </tr>
+      <tr class="pure-table-odd">
+          <!--<td>25</td>-->
+          <td>Thailand</td>
+          <td>2,232,485</td>
+          <td style="background-color: #06283D;color: white"><b>+8,167</b></td>
+          <td>21,738</td>
+          <td style="background-color: #47B5FF;color: white"><b>+14</b></td>
+          <td>2,177,633</td>
+          <td style="background-color: #9A9483;"><b>+3,845</b></td>
+          <td>33,114</td>
+          <td>588</td>
+          <td>31,864</td>
+          <td>310</td>
+          <td>17,270,775</td>
+          <td>246,503</td>
+          <td>70,063,176</td>
+      </tr>
+      <tr>
+          <!--<td>26</td>-->
+          <td>Belgium</td>
+          <td>2,105,343</td>
+          <td style="background-color: #06283D;color: white"><b>+39,321</b></td>
+          <td>28,331</td>
+          <td style="background-color: #47B5FF;color: white"><b>+27</b></td>
+          <td>1,737,727</td>
+          <td style="background-color: #9A9483;"><b>+11,170</b></td>
+          <td>339,285</td>
+          <td>537</td>
+          <td>180,477</td>
+          <td>2,429</td>
+          <td>27,288,173</td>
+          <td>2,339,238</td>
+          <td>11,665,412</td>
+      </tr>
+      <tr class="pure-table-odd">
+          <!--<td>27</td>-->
+          <td>Iraq</td>
+          <td>2,094,349</td>
+          <td style="background-color: #06283D;color: white"><b>+2,385</b></td>
+          <td>24,174</td>
+          <td style="background-color: #47B5FF;color: white"><b>+4</b></td>
+          <td>2,065,723</td>
+          <td style="background-color: #9A9483;"><b>+370</b></td>
+          <td>4,452</td>
+          <td>68</td>
+          <td>50,373</td>
+          <td>581</td>
+          <td>16,855,469</td>
+          <td>405,407</td>
+          <td>41,576,667</td>
+      </tr>
+      <tr>
+        <!--<td>30</td>-->
+        <td>Vietnam</td>
+        <td>1,778,976</td>
+        <td style="background-color: #06283D;color: white"><b>+16,725</b></td>
+        <td>33,021</td>
+        <td style="background-color: #47B5FF;color: white"><b>+206</b></td>
+        <td>1,397,157</td>
+        <td style="background-color: #9A9483;"><b>+26,031</b></td>
+        <td>348,798</td>
+        <td>6,427</td>
+        <td>18,032</td>
+        <td>335</td>
+        <td>75,170,635</td>
+        <td>761,961</td>
+        <td>98,654,178</td>
+    </tr>
+      <tr>
+          <!--<td>28</td>-->
+          <td>Romania</td>
+          <td>1,813,056</td>
+          <td style="background-color: #06283D;color: white"><b>+9,785</b></td>
+          <td>58,814</td>
+          <td style="background-color: #47B5FF; color: white"><b>+34</b></td>
+          <td>1,741,871</td>
+          <td style="background-color: #9A9483;"><b>+6,158</b></td>
+          <td>12,371</td>
+          <td>403</td>
+          <td>95,200</td>
+          <td>3,088</td>
+          <td>17,158,825</td>
+          <td>900,973</td>
+          <td>19,044,782</td>
+      </tr>
+      <tr class="pure-table-odd">
+          <!--<td>29</td>-->
+          <td>Chile</td>
+          <td>1,811,297</td>
+          <td style="background-color: #06283D;color: white"><b>+7,247</b></td>
+          <td>39,173</td>
+          <td style="background-color: #47B5FF; color: white;"><b>+41</b></td>
+          <td>1,731,458</td>
+          <td style="background-color: #9A9483;"><b>+958</b></td>
+          <td>40,666</td>
+          <td>511</td>
+          <td>93,546</td>
+          <td>2,023</td>
+          <td>27,511,293</td>
+          <td>1,420,840</td>
+          <td>19,362,698</td>
+      </tr>
+     
+  </tbody>
+</table>
+</div>
+
+
+<!----------------------------------------highlighted boxes--------------------------------------------->
+<div class="pure-g">
+  <div class=" pure-u 1 pure-u-md-1-3">
+    <p style="color: black"> <b>Cells highlighted in <canvas id="rect1" style="background-color: #06283D; height: 15px; width: 15px; border-radius: 3px; border-color: #06283D;"></canvas>  = New cases.</b></p>
+  </div>
+  <div class=" pure-u-1 pure-u-md-1-3">
+    <p style="color: black"> <b>Cells highlighted in <canvas id="rect1" style="background-color: #47B5FF; height: 15px; width: 15px; border-radius: 3px; border-color: #06283D;"></canvas>  = New deaths.</b></p>
+</div>
+<div class=" pure-u-1 pure-u-md-1-3">
+  <p style="color: black"> <b>Cells highlighted in <canvas id="rect1" style="background-color: #9A9483; height: 15px; width: 15px; border-radius: 3px; border-color: #06283D;"></canvas>  = New recoveries.</b></p>
+</div>
+</div>
+
+<div class=pure-u-1></div>
+<div class=pure-u-1></div>
+<div class=pure-u-1></div>
+<div class=pure-u-1></div>
+
+
+<!----------------------------------footer---------------------------------------------->
+<div class="footer l-box" style="background-color:#06283D;border:1px;">
+  <div class="footerlinks">
+    <div style="margin-bottom:10px"><a href="/"><img src="iconn.png" border="0" class="img-footer" style="height: 50px; width: 50px"></a></div>
+    <a href="#"><b style="color:white;">About</b></a><span style="color: white;"> | </span><a href="#"><b style="color: white;">FAQ</b></a><span style="color: white;"> | </span><a href="#"><b style="color: white;">Languages</b></a><span style="color: white;"> | </span><a href="#"><b style="color: white">Contact </b></a><span style="color: white;"> | </span><a href="#"><b style="color: white;">Report Coronavirus Cases</b></a>
+    </div><br><br>
+    <center><p style="color: white;">© Copyright Worldometers.info - All rights reserved</p></center>
+  </div>
+
+</body>
+</html>
